@@ -1,6 +1,7 @@
 package com.scientificgames.reader;
 
 import java.io.File;
+import java.util.function.Function;
 
 import com.scientificgames.model.Parameters;
 
@@ -13,10 +14,11 @@ public class FirstReader extends AbstractXmlReader<Parameters> {
     }
 
     @Override
-    public Parameters readParams() {
-        Parameters params = super.readParams();
-        params.setPanelCount(DEAFAULT_PANEL_COUNT);
-        return params;
+    Function<Parameters, Parameters> getParamCustomizer() {
+        return (p) -> {
+            p.setPanelCount(DEAFAULT_PANEL_COUNT);
+            return p;
+        };
     }
 
     @Override

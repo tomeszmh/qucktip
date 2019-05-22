@@ -1,6 +1,8 @@
 package com.scientificgames.reader;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.function.Function;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -15,30 +17,18 @@ public abstract class AbstractXmlReader<P extends Parameters> implements Paramet
 
     abstract File getFile();
 
-    public P readParams() {
-        try {
-            File file = getFile();
-            String xml = inputStreamToString(new FileInputStream(file));
-            XmlMapper mapper = new XmlMapper();
-            return mapper.readValue(xml, classType);
-        } catch (JsonMappingException e) {
-            System.err.println("Unable to map xml file to " + classType.getName());
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.err.println("Unable to read input xml file");
-            e.printStackTrace();
-        }
-        return null;
+    Function<P, P> getParamCustomizer() {
+        return p -> p;
     }
 
-    private String inputStreamToString(InputStream inputStream) throws IOException {
-        StringBuilder sb = new StringBuilder();
-        String line;
-        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-        while ((line = br.readLine()) != null) {
-            sb.append(line);
+    public P readParams() {
+        try {
+            return getParamCustomizer().apply(new XmlMapper().readValue(getFile(), classType));
+        } catch (JsonMappingException e) {
+            throw new RuntimeException("Unable to map xml file to " + classType.getName(), e);
+        } catch (IOException e) {
+            throw new RuntimeException("Unable to read input xml file", e);
         }
-        br.close();
-        return sb.toString();
     }
+
 }

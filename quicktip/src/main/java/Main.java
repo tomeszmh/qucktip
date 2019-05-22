@@ -1,7 +1,7 @@
 import java.util.stream.IntStream;
 
 import com.scientificgames.calculator.QuickTip;
-import com.scientificgames.calculator.com.scientificgames.factory.QuickTipFactory;
+import com.scientificgames.factory.QuickTipFactory;
 
 public class Main {
 
