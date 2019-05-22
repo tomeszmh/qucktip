@@ -1,5 +1,6 @@
 package com.scientificgames.calculator;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -19,10 +20,24 @@ public abstract class Calculator<P extends Parameters> implements QuickTip {
         this.reader = reader;
     }
 
+    public void initRandomizer(int maxNumber) {
+        randomizer = randomizer == null ? new Randomizer(maxNumber) : randomizer;
+    }
 
     @Override
     public Ticket calculate() {
-        params = reader.readParams();
+        try {
+            params = reader.readParams();
+            initRandomizer(params.getMaxNumber());
+        } catch (IOException ioe) {
+            System.err.println("Unable to read params!");
+        }
+        Ticket ticket = calculateTicket();
+
+        return ticket;
+    }
+
+    private Ticket calculateTicket() {
         Ticket ticket = new Ticket();
         List<GamePanel> gamePanels = new ArrayList<>(params.getPanelCount());
         GamePanel gamePanel = new GamePanel();
@@ -34,7 +49,6 @@ public abstract class Calculator<P extends Parameters> implements QuickTip {
 
         gamePanels.add(gamePanel);
         ticket.setGamePanels(gamePanels);
-
         return ticket;
     }
 
@@ -50,11 +64,4 @@ public abstract class Calculator<P extends Parameters> implements QuickTip {
         return number;
     }
 
-    public Randomizer getRandomizer() {
-        return randomizer;
-    }
-
-    public void setRandomizer(Randomizer randomizer) {
-        this.randomizer = randomizer;
-    }
 }
