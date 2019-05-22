@@ -10,14 +10,14 @@ import com.scientificgames.model.*;
 import com.scientificgames.random.Randomizer;
 import com.scientificgames.reader.ParameterReadable;
 
-public abstract class AbstractCalculator<P extends Parameters> implements QuickTip {
+public abstract class AbstractCalculator implements QuickTip {
     private Randomizer randomizer;
 
-    private ParameterReadable<P> reader;
+    private ParameterReadable reader;
 
-    private P params;
+    private Parameters params;
 
-    public AbstractCalculator(ParameterReadable<P> reader) {
+    public AbstractCalculator(ParameterReadable reader) {
         this.reader = reader;
     }
 

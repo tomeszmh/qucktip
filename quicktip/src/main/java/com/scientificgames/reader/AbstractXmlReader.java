@@ -2,7 +2,7 @@ package com.scientificgames.reader;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -17,7 +17,7 @@ public abstract class AbstractXmlReader<P extends Parameters> implements Paramet
 
     abstract File getFile();
 
-    Function<P, P> getParamCustomizer() {
+    protected UnaryOperator<P> getParamCustomizer() {
         return p -> p;
     }
 

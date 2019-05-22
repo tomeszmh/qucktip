@@ -1,24 +1,22 @@
 package com.scientificgames.reader;
 
 import java.io.File;
-import java.util.function.Function;
+import java.util.function.UnaryOperator;
 
 import com.scientificgames.model.Parameters;
 
 public class SecondReader extends AbstractXmlReader<Parameters> {
     private static final String XML_FILE_NAME = "second_param.xml";
-    private static final int DEAFAULT_MAX_NUMBER = 90;
+    private static final int DEFAULT_MAX_NUMBER = 90;
 
     public SecondReader(Class<Parameters> classType) {
         super(classType);
     }
 
+
     @Override
-    Function<Parameters, Parameters> getParamCustomizer() {
-        return (p) -> {
-            p.setMaxNumber(DEAFAULT_MAX_NUMBER);
-            return p;
-        };
+    protected UnaryOperator<Parameters> getParamCustomizer() {
+        return p -> p.setMaxNumber(DEFAULT_MAX_NUMBER);
     }
 
     @Override

@@ -1,10 +1,9 @@
+import java.util.stream.IntStream;
+
 import com.scientificgames.calculator.QuickTip;
 import com.scientificgames.factory.QuickTipFactory;
 
-import java.util.stream.IntStream;
-
 public class Main {
-
 
     public static void main(String args[]) {
         if (args.length == 0) {
