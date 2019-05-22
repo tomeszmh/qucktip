@@ -1,0 +1,5 @@
+<Parameters>
+    <maxNumber>90</maxNumber>
+    <lotteryNumbersCount>5</lotteryNumbersCount>
+    <panelCount>3</panelCount>
+</Parameters>
