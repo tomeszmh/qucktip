@@ -1,20 +1,23 @@
 package com.scientificgames.factory;
 
-import com.scientificgames.calculator.*;
+import com.scientificgames.calculator.FirstTypedCalculator;
+import com.scientificgames.calculator.QuickTip;
+import com.scientificgames.calculator.SecondTypedCalculator;
+import com.scientificgames.calculator.ThirdTypedCalculator;
 
 public class QuickTipFactory {
 
-    public static QuickTip getInstance(String number) {
+    public static QuickTip getInstance(int number) {
 
         switch (number) {
-            case "1":
+            case 1:
                 return new FirstTypedCalculator();
-            case "2":
+            case 2:
                 return new SecondTypedCalculator();
-            case "3":
+            case 3:
                 return new ThirdTypedCalculator();
             default:
-                return new FirstTypedCalculator();
+                throw new RuntimeException("Not valid game type: " + number);
 
         }
 

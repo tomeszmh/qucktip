@@ -19,23 +19,26 @@ public class Parameters {
         return panelCount;
     }
 
-    public void setPanelCount(int panelCount) {
+    public Parameters setPanelCount(int panelCount) {
         this.panelCount = panelCount;
+        return this;
     }
 
     public int getMaxNumber() {
         return maxNumber;
     }
 
-    public void setMaxNumber(int maxNumber) {
+    public Parameters setMaxNumber(int maxNumber) {
         this.maxNumber = maxNumber;
+        return this;
     }
 
     public int getLotteryNumbersCount() {
         return lotteryNumbersCount;
     }
 
-    public void setLotteryNumbersCount(int lotteryNumbersCount) {
+    public Parameters setLotteryNumbersCount(int lotteryNumbersCount) {
         this.lotteryNumbersCount = lotteryNumbersCount;
+        return this;
     }
 }

@@ -3,6 +3,7 @@ package com.scientificgames.calculator;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.scientificgames.model.*;
@@ -30,40 +31,29 @@ public abstract class AbstractCalculator<P extends Parameters> implements QuickT
             params = reader.readParams();
             initRandomizer(params.getMaxNumber());
         } catch (IOException ioe) {
-            System.err.println("Unable to read params!");
+            throw new RuntimeException("Unable to read params!");
         }
-        Ticket ticket = calculateTicket();
 
-        return ticket;
+        return calculateTicket();
     }
 
     private Ticket calculateTicket() {
-        Ticket ticket = new Ticket();
-        List<GamePanel> gamePanels = calculatePanels(params.getPanelCount());
-        ticket.setGamePanels(gamePanels);
-        return ticket;
+        return new Ticket(calculatePanels(params.getPanelCount()));
     }
 
     private List<GamePanel> calculatePanels(int numberOfPanels) {
-        List<GamePanel> gamePanels = new ArrayList<>(params.getPanelCount());
-
-        IntStream.range(0, numberOfPanels).forEach(i ->
-        {
-            GamePanel gamePanel = new GamePanel();
-            List<Integer> numbers = new ArrayList<>();
-            generateNumbers(params.getLotteryNumbersCount(), numbers);
-            gamePanel.setNumbers(numbers);
-            gamePanels.add(gamePanel);
-        });
-
-        return gamePanels;
+        return IntStream.range(0, numberOfPanels)
+                .mapToObj(i -> new GamePanel(generateNumbers(params.getLotteryNumbersCount())))
+                .collect(Collectors.toList());
     }
 
-    private void generateNumbers(int count, List<Integer> numbers) {
-        IntStream.range(0, count).forEach(j -> numbers.add(createNonExistingNumber(numbers)));
+    private List<Integer> generateNumbers(int count) {
+        List<Integer> numbers = new ArrayList<>();
+        IntStream.range(0, count).forEach(j -> numbers.add(generateNonExistingNumber(numbers)));
+        return numbers;
     }
 
-    int createNonExistingNumber(List<Integer> list) {
+    private int generateNonExistingNumber(List<Integer> list) {
         int number = randomizer.generate();
         while (list.contains(number)) {
             number = randomizer.generate();

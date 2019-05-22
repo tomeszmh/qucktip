@@ -4,7 +4,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Ticket {
-    List<GamePanel> gamePanels;
+    private List<GamePanel> gamePanels;
+
+    public Ticket(List<GamePanel> gamePanels) {
+        this.gamePanels = gamePanels;
+    }
 
     public Ticket() {
     }
@@ -19,6 +23,6 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return "Generated ticket: \n" + gamePanels.stream().map(panel -> panel.toString()).collect(Collectors.joining());
+        return "Generated ticket: \n" + gamePanels.stream().map(GamePanel::toString).collect(Collectors.joining());
     }
 }
