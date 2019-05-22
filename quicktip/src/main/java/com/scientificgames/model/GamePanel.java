@@ -15,6 +15,6 @@ public class GamePanel {
 
     @Override
     public String toString() {
-        return numbers.toString();
+        return numbers.toString() + "\n";
     }
 }

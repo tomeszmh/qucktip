@@ -17,7 +17,6 @@ public class FirstReader extends AbstractXmlReader<Parameters> {
         Parameters params = super.readParams();
         params.setPanelCount(DEAFAULT_PANEL_COUNT);
         return params;
-
     }
 
     @Override

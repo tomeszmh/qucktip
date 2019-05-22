@@ -19,6 +19,6 @@ public class Ticket {
 
     @Override
     public String toString() {
-        return gamePanels.stream().map(panel -> panel.toString()).collect(Collectors.joining());
+        return "Generated ticket: \n" + gamePanels.stream().map(panel -> panel.toString()).collect(Collectors.joining());
     }
 }
