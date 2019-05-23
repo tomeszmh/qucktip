@@ -1,6 +1,6 @@
 package com.scientificgames.reader;
 
-import java.io.File;
+import java.io.InputStream;
 import java.util.function.UnaryOperator;
 
 import com.scientificgames.model.Parameters;
@@ -20,7 +20,7 @@ public class SecondReader extends AbstractXmlReader<Parameters> {
     }
 
     @Override
-    File getFile() {
-        return new File(getClass().getClassLoader().getResource(XML_FILE_NAME).getFile());
+    InputStream getFileAsInputStream() {
+        return  getClass().getClassLoader().getResourceAsStream(XML_FILE_NAME);
     }
 }
